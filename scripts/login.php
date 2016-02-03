@@ -1,8 +1,10 @@
 <?php
 $message = "<p></p>";
+$username = $password = "";
 if ($_POST) {
+
 	
-$username = $_POST['username'];
+$username = test_input($_POST['username']);
 $password = md5($_POST['password']);
 
 include('connect.php');
@@ -19,6 +21,13 @@ if (mysqli_num_rows($result)==1) {
 	$message = "<p>Incorrect Username or Password</p>";;
 }
 
+}
+
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
 }
 
 ?>
@@ -48,7 +57,7 @@ if (mysqli_num_rows($result)==1) {
 	<div class="row">
 		<div class="col-sm-offset-2 col-sm-8">
 
-			<form method="POST">
+			<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 				
 					<div class="input-group input-group-md">
 					  <span class="input-group-addon" id="sizing-addon1">Username</span>

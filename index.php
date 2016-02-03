@@ -1,9 +1,16 @@
 <?php
 
+
 session_start();
 
 if (!isset($_SESSION['username'])) {
 	header('location:scripts/login.php');
+}
+
+
+if (!$_SESSION['wrongusername'] || !$_SESSION['wrongemail']) {
+	$_SESSION['wrongusername'] = "";
+	$_SESSION['wrongemail'] = "";
 }
 
 ?>
@@ -28,6 +35,7 @@ if (!isset($_SESSION['username'])) {
 
 <div class="page-header">
   <h1>PHP Exercise <small>index.php</small></h1>
+  <a href="scripts/logout.php" class="btn btn-danger" style="position: absolute; top: 5px; right: 5px">Log Out</a>
 </div>
 
 	<div class="row">
@@ -39,33 +47,24 @@ if (!isset($_SESSION['username'])) {
 				
 					<div class="input-group input-group-md">
 					  <span class="input-group-addon" id="sizing-addon1">Username</span>
-					  <input type="text" name="username" class="form-control" placeholder="Username" aria-describedby="sizing-addon1">
+					  <input type="text" name="username" class="form-control" placeholder="Username" aria-describedby="sizing-addon1" value="<?php echo $_SESSION['wrongusername'];?>">
 					</div><br/>
 				
 				
 					<div class="input-group input-group-md">
 					  <span class="input-group-addon" id="sizing-addon1">Email</span>
-					  <input type="text" name="email" class="form-control" placeholder="Email" aria-describedby="sizing-addon1">
+					  <input type="text" name="email" class="form-control" placeholder="Email" aria-describedby="sizing-addon1" value="<?php echo $_SESSION['wrongemail'];?>">
 					</div><br/>
 				
 				<input type="submit" name="submit" class="btn btn-success"></input>
 
 			</form>
 
-			<h1>Delete User From Database</h1>
-
-			<form action="scripts/removeFromDB.php" method="POST">
-				
-					<div class="input-group input-group-md">
-					  <span class="input-group-addon" id="sizing-addon1">Username</span>
-					  <input type="text" name="username" class="form-control" placeholder="Username" aria-describedby="sizing-addon1">
-					</div><br/>
-				
 			
-				<input type="submit" name="delete" value="delete" class="btn btn-danger"></input>
 
-			</form>
+			<br><br>
 
+			<a href="scripts/viewmailinglist.php" class="btn btn-success">View Email List</a>
 		</div>
 	</div>
 </body>
